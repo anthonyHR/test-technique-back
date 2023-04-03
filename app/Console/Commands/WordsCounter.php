@@ -25,7 +25,7 @@ class WordsCounter extends Command
      */
     public function handle(): void
     {
-        $path = storage_path('app/public/test.txt');
+        $path = storage_path('app/public/texte.txt');
 
         if (file_exists($path)) {
             $file = fopen($path, 'r');
