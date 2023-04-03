@@ -15,20 +15,23 @@ return new class extends Migration {
             $table->string("name");
             $table->string("description");
             $table->time("duration");
+            $table->timestamps();
         });
 
         Schema::create("users", function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("email");
+            $table->string("email")->unique();
+            $table->timestamps();
         });
 
         Schema::create("activity_data", function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id");
-            $table->unsignedBigInteger("activity_id");
+            $table->unsignedBigInteger("user_id")->references('id')->on('users');
+            $table->unsignedBigInteger("activity_id")->references('id')->on('activities');
             $table->time("point_in_time");
             $table->double("speed");
+            $table->timestamps();
         });
     }
 
@@ -39,5 +42,6 @@ return new class extends Migration {
     {
         Schema::drop("activities");
         Schema::drop("users");
+        Schema::drop('activity_data');
     }
 };
